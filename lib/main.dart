@@ -1,26 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_holdout/cookbook/animate_a_widget/main_screen.dart';
-import 'package:my_holdout/cookbook/navigate/first_route.dart';
-// import 'package:number_trivia/cubit/weather_cubit.dart';
-import 'package:my_holdout/weather/bloc/weather_bloc.dart';
-import 'package:my_holdout/weather/domain/weather_repository.dart';
-import 'package:my_holdout/weather/presenter/weather_search_page.dart';
+import 'package:my_holdout/holdout_router.dart';
 
 void main() {
-  // runApp(MyApp());
-  // runApp(HeroApp());
-  runApp(RouterApp());
-}
-
-class HeroApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Transition Demo',
-      home: MainScreen(),
-    );
-  }
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -45,10 +27,7 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: BlocProvider(
-        create: (context) => WeatherBloc(FakeWeatherRepository()),
-        child: WeatherSearchPage(),
-      ),
+      home: HoldoutRouter(),
     );
   }
 }
