@@ -1,12 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_holdout/cookbook/animate_a_widget/main_screen.dart';
 // import 'package:number_trivia/cubit/weather_cubit.dart';
-import 'package:my_holdout/bloc/weather_bloc.dart';
+import 'package:my_holdout/weather/bloc/weather_bloc.dart';
 import 'package:my_holdout/weather/domain/weather_repository.dart';
 import 'package:my_holdout/weather/presenter/weather_search_page.dart';
 
 void main() {
-  runApp(MyApp());
+  // runApp(MyApp());
+  runApp(HeroApp());
+}
+
+class HeroApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Transition Demo',
+      home: MainScreen(),
+    );
+  }
 }
 
 class MyApp extends StatelessWidget {

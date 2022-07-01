@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 // import 'package:number_trivia/cubit/weather_cubit.dart';
-import 'package:my_holdout/bloc/weather_bloc.dart';
+import 'package:my_holdout/weather/bloc/weather_bloc.dart';
 import 'package:my_holdout/weather/domain/weather.dart';
 
 class WeatherSearchPage extends StatefulWidget {
