@@ -2,6 +2,7 @@ import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:get_it/get_it.dart';
 import 'package:my_holdout/number_trivia/data/number_trivia_local_data_source.dart';
 import 'package:my_holdout/number_trivia/data/number_trivia_remote_data_source.dart';
+import 'package:my_holdout/number_trivia/data/number_trivia_repository.dart';
 import 'package:my_holdout/number_trivia/data/number_trivia_repository_impl.dart';
 import 'package:my_holdout/number_trivia/domain/get_concrete_number_trivia.dart';
 import 'package:my_holdout/number_trivia/domain/get_random_number_trivia.dart';
@@ -22,18 +23,18 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GetRandomNumberTrivia(sl()));
   
   // Repository
-  sl.registerLazySingleton(() => NumberTriviaRepositoryImpl(
+  sl.registerLazySingleton<NumberTriviaRepository>(() => NumberTriviaRepositoryImpl(
       remoteDataSource: sl(),
       localDataSource: sl(),
       networkInfo: sl()));
 
   // Data sources
-  sl.registerLazySingleton(() => NumberTriviaRemoteDataSourceImpl(client: sl()));
-  sl.registerLazySingleton(() => NumberTriviaLocalDataSourceImpl(sharedPreferences: sl()));
+  sl.registerLazySingleton<NumberTriviaRemoteDataSource>(() => NumberTriviaRemoteDataSourceImpl(client: sl()));
+  sl.registerLazySingleton<NumberTriviaLocalDataSource>(() => NumberTriviaLocalDataSourceImpl(sharedPreferences: sl()));
 
   //! Core
   sl.registerLazySingleton(() => InputConverter());
-  sl.registerLazySingleton(() => NetworkInfoImpl(checker: sl()));
+  sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(checker: sl()));
 
   //! External
   final sharedPreferences = await SharedPreferences.getInstance();

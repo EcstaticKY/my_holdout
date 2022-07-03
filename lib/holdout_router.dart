@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_holdout/number_trivia/presentation/pages/number_trivia_page.dart';
 import 'package:my_holdout/weather/bloc/weather_bloc.dart';
 import 'package:my_holdout/weather/cubit/weather_cubit.dart';
 import 'package:my_holdout/weather/domain/weather_repository.dart';
@@ -44,6 +45,11 @@ class HoldoutRouter extends StatelessWidget {
             onPressed: () => Navigator.push(
                 context, MaterialPageRoute(builder: (context) => MainScreen())),
             child: Text('Go to animate a widget across screens'),
+          ),
+          ElevatedButton(
+            onPressed: () => Navigator.push(
+                context, MaterialPageRoute(builder: (context) => NumberTriviaPage())),
+            child: Text('Go to Number Trivia'),
           ),
           Spacer(),
         ],
