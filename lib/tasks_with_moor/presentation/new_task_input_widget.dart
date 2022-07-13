@@ -41,9 +41,9 @@ class _NewTaskInputState extends State<NewTaskInput> {
       controller: controller,
       decoration: InputDecoration(hintText: "Task Name"),
       onSubmitted: (inputName) {
-        final database = Provider.of<AppDatabase>(context, listen: false);
+        final dao = Provider.of<TaskDao>(context, listen: false);
         final task = Task(name: inputName, dueDate: newTaskDate);
-        database.insertTask(task);
+        dao.insertTask(task);
         resetValuesAfterSubmit();
       },
     ));

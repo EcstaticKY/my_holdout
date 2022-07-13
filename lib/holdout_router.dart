@@ -62,7 +62,7 @@ class HoldoutRouter extends StatelessWidget {
               context,
               MaterialPageRoute(
                   builder: (context) => Provider(
-                        create: (_) => AppDatabase(),
+                        create: (_) => AppDatabase().taskDao,
                         child: MaterialApp(
                           title: 'Tasks App',
                           home: HomePage(),
