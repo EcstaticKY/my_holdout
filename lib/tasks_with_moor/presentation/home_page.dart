@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
   StreamBuilder<List<Task>> _buildTaskList(BuildContext context) {
     final dao = Provider.of<TaskDao>(context);
     return StreamBuilder(
-        stream: showCompleted ? dao.watchCompletedTasks() : dao.watchAllTasks(),
+        stream: showCompleted ? dao.watchCompletedTasksCustom() : dao.watchAllTasks(),
         builder: (context, AsyncSnapshot<List<Task>> snapshot) {
           final tasks = snapshot.data ?? List();
 
