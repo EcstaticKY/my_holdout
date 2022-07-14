@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_holdout/number_trivia/presentation/pages/number_trivia_page.dart';
-import 'package:my_holdout/tasks_with_moor/data/moor_database.dart';
 import 'package:my_holdout/tasks_with_moor/presentation/home_page.dart';
 import 'package:my_holdout/weather/bloc/weather_bloc.dart';
 import 'package:my_holdout/weather/cubit/weather_cubit.dart';
@@ -10,7 +9,6 @@ import 'package:my_holdout/weather/bloc/weather_search_page.dart'
     as weatherBloc;
 import 'package:my_holdout/weather/cubit/weather_search_page.dart'
     as weatherCubit;
-import 'package:provider/provider.dart';
 
 import 'cookbook/animate_a_widget/main_screen.dart';
 
@@ -61,13 +59,7 @@ class HoldoutRouter extends StatelessWidget {
             onPressed: () => Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => Provider(
-                        create: (_) => AppDatabase().taskDao,
-                        child: MaterialApp(
-                          title: 'Tasks App',
-                          home: HomePage(),
-                        ),
-                      )),
+                  builder: (context) => TasksApp()),
             ),
             child: Text('Go to task list'),
           ),

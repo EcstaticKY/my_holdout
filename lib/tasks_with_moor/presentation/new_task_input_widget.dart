@@ -15,6 +15,7 @@ class NewTaskInput extends StatefulWidget {
 class _NewTaskInputState extends State<NewTaskInput> {
   DateTime newTaskDate;
   TextEditingController controller;
+  Tag selectedTag;
 
   @override
   void initState() {
@@ -30,6 +31,7 @@ class _NewTaskInputState extends State<NewTaskInput> {
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
           _buildTextField(context),
+          _buildTagSelector(context),
           _buildDateButton(context),
         ],
       ),
@@ -43,11 +45,61 @@ class _NewTaskInputState extends State<NewTaskInput> {
       decoration: InputDecoration(hintText: "Task Name"),
       onSubmitted: (inputName) {
         final dao = Provider.of<TaskDao>(context, listen: false);
-        final task = TasksCompanion(name: Value(inputName), dueDate: Value(newTaskDate));
+        final task =
+            TasksCompanion(name: Value(inputName), dueDate: Value(newTaskDate), tagName: Value(selectedTag?.name));
         dao.insertTask(task);
         resetValuesAfterSubmit();
       },
     ));
+  }
+
+  StreamBuilder<List<Tag>> _buildTagSelector(BuildContext context) {
+    return StreamBuilder<List<Tag>>(
+        stream: Provider.of<TagDao>(context).watchTags(),
+        builder: (context, snapshot) {
+          final tags = snapshot.data ?? List();
+
+          DropdownMenuItem<Tag> dropDownFromTag(Tag tag) {
+            return DropdownMenuItem(
+              value: tag,
+              child: Row(
+                children: <Widget>[
+                  Text(tag.name),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Container(
+                    width: 15,
+                    height: 15,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Color(tag.color),
+                    ),
+                  )
+                ],
+              ),
+            );
+          }
+
+          final dropdownMenuItems =
+              tags.map((tag) => dropDownFromTag(tag)).toList()
+                ..insert(
+                  0,
+                  DropdownMenuItem(value: null, child: Text('No tag')),
+                );
+
+          return Expanded(
+              child: DropdownButton(
+            onChanged: (Tag tag) {
+              setState(() {
+                selectedTag = tag;
+              });
+            },
+            isExpanded: true,
+            value: selectedTag,
+            items: dropdownMenuItems,
+          ));
+        });
   }
 
   IconButton _buildDateButton(BuildContext context) {
@@ -65,6 +117,7 @@ class _NewTaskInputState extends State<NewTaskInput> {
   void resetValuesAfterSubmit() {
     setState(() {
       newTaskDate = null;
+      selectedTag = null;
       controller.clear();
     });
   }

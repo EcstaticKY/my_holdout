@@ -25,7 +25,7 @@ class AppDatabase extends _$AppDatabase {
         )));
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
 
   @override
   MigrationStrategy get migration =>
@@ -70,7 +70,7 @@ class TaskDao extends DatabaseAccessor<AppDatabase> with _$TaskDaoMixin {
             }).toList());
   }
 
-  Stream<List<Task>> watchCompletedTasks() {
+  Stream<List<TaskWithTag>> watchCompletedTasks() {
     // where returns void, need to use the cascading operator
     return (select(tasks)
           ..orderBy(
@@ -83,7 +83,15 @@ class TaskDao extends DatabaseAccessor<AppDatabase> with _$TaskDaoMixin {
             ]),
           )
           ..where((t) => t.completed.equals(true)))
-        .watch();
+        .join([
+          leftOuterJoin(tags, tags.name.equalsExp(tasks.tagName)),
+        ])
+        // watch the whole select statement
+        .watch()
+        .map((rows) => rows.map((row) {
+              return TaskWithTag(
+                  task: row.readTable(tasks), tag: row.readTable(tags));
+            }).toList());
   }
 
   // Watching complete tasks with a custom query
