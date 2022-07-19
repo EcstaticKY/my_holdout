@@ -22,7 +22,7 @@ abstract class StreamUseCase<T, Params> {
     final StreamSubscription subscription = (await buildUseCaseStream(params))
         .listen(observer.onNext,
             onDone: observer.onComplete, onError: observer.onError);
-    _disposable.add(subscription);
+    _addSubscription(subscription);
   }
 
   void dispose() {

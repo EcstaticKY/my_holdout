@@ -11,6 +11,7 @@ import 'package:my_holdout/weather/cubit/weather_search_page.dart'
     as weatherCubit;
 
 import 'cookbook/animate_a_widget/main_screen.dart';
+import 'features/return_local_remote/presentation/get_my_item_list_page.dart';
 
 class HoldoutRouter extends StatelessWidget {
   @override
@@ -62,6 +63,14 @@ class HoldoutRouter extends StatelessWidget {
                   builder: (context) => TasksApp()),
             ),
             child: Text('Go to task list'),
+          ),
+          ElevatedButton(
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => GetMyItemListPage()),
+            ),
+            child: Text('Go to my item list'),
           ),
           Spacer(),
         ],
