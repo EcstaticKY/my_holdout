@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_holdout/features/simple_list_page/presentation/widgets/task_list_page.dart';
 import 'package:my_holdout/number_trivia/presentation/pages/number_trivia_page.dart';
 import 'package:my_holdout/tasks_with_moor/presentation/home_page.dart';
 import 'package:my_holdout/weather/bloc/weather_bloc.dart';
@@ -63,6 +64,14 @@ class HoldoutRouter extends StatelessWidget {
                   builder: (context) => TasksApp()),
             ),
             child: Text('Go to task list'),
+          ),
+          ElevatedButton(
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => TaskListPage()),
+            ),
+            child: Text('Go to my task list'),
           ),
           ElevatedButton(
             onPressed: () => Navigator.push(
