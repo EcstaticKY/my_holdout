@@ -12,7 +12,8 @@ class TaskListPage extends StatelessWidget {
         title: Text('My Tasks'),
       ),
       body: BlocProvider<TaskListBloc>(
-        create: (_) => TaskListBloc(getTasks: GetTasksUseCase()),
+        create: (_) => TaskListBloc(getTasks: GetTasksUseCase())
+          ..add(RefreshTaskListEvent()),
         child: Column(
           children: <Widget>[
             BlocBuilder<TaskListBloc, TaskListState>(builder: (context, state) {
