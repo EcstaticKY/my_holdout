@@ -27,7 +27,7 @@ class TaskListPage extends StatelessWidget {
             if (state is TaskListLoading) {
               return Text('Loading...');
             } else if (state is TaskListLoaded) {
-              return Text('Loaded.');
+              return Text('Loaded ${state.tasks.length} tasks.');
             } else {
               return Text('Empty.');
             }
