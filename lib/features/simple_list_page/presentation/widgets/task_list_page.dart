@@ -11,23 +11,41 @@ class TaskListPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('My Tasks'),
       ),
-      body: BlocProvider<TaskListBloc>(
-        create: (_) => TaskListBloc(getTasks: GetTasksUseCase())
-          ..add(RefreshTaskListEvent()),
-        child: Column(
-          children: <Widget>[
-            BlocBuilder<TaskListBloc, TaskListState>(builder: (context, state) {
-              if (state is TaskListLoading) {
-                return Text('Loading...');
-              } else if (state is TaskListLoaded) {
-                return Text('Loaded.');
-              } else {
-                return Text('Empty.');
-              }
-            })
-          ],
-        ),
+      body: SingleChildScrollView(
+          child: _buildBody(context)),
+    );
+  }
+
+  BlocProvider<TaskListBloc> _buildBody(BuildContext context) {
+    return BlocProvider<TaskListBloc>(
+      create: (_) =>
+      TaskListBloc(getTasks: GetTasksUseCase())
+        ..add(RefreshTaskListEvent()),
+      child: Column(
+        children: <Widget>[
+          BlocBuilder<TaskListBloc, TaskListState>(builder: (context, state) {
+            if (state is TaskListLoading) {
+              return Text('Loading...');
+            } else if (state is TaskListLoaded) {
+              return Text('Loaded.');
+            } else {
+              return Text('Empty.');
+            }
+          }),
+          MyButton(),
+        ],
       ),
+    );
+  }
+}
+
+class MyButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () =>
+          BlocProvider.of<TaskListBloc>(context).add(RefreshTaskListEvent()),
+      child: Text('refresh'),
     );
   }
 }
