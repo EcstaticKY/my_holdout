@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_holdout/cookbook/images/cached_images.dart';
+import 'package:my_holdout/cookbook/images/my_images.dart';
 import 'package:my_holdout/features/simple_list_page/presentation/widgets/task_list_page.dart';
 import 'package:my_holdout/number_trivia/presentation/pages/number_trivia_page.dart';
 import 'package:my_holdout/tasks_with_moor/presentation/home_page.dart';
@@ -60,24 +62,35 @@ class HoldoutRouter extends StatelessWidget {
           ElevatedButton(
             onPressed: () => Navigator.push(
               context,
-              MaterialPageRoute(
-                  builder: (context) => TasksApp()),
+              MaterialPageRoute(builder: (context) => TasksApp()),
             ),
             child: Text('Go to task list'),
           ),
           ElevatedButton(
             onPressed: () => Navigator.push(
               context,
-              MaterialPageRoute(
-                  builder: (context) => TaskListPage()),
+              MaterialPageRoute(builder: (context) => TaskListPage()),
             ),
             child: Text('Go to my task list'),
           ),
           ElevatedButton(
             onPressed: () => Navigator.push(
               context,
-              MaterialPageRoute(
-                  builder: (context) => GetMyItemListPage()),
+              MaterialPageRoute(builder: (context) => MyImages()),
+            ),
+            child: Text('Go to my images'),
+          ),
+          ElevatedButton(
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => CachedImages()),
+            ),
+            child: Text('Go to cached images'),
+          ),
+          ElevatedButton(
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => GetMyItemListPage()),
             ),
             child: Text('Go to my item list'),
           ),

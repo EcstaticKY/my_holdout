@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_holdout/features/simple_list_page/domain/get_tasks_usecase.dart';
 import 'package:my_holdout/features/simple_list_page/presentation/bloc/task_list_bloc.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class TaskListPage extends StatelessWidget {
   @override
@@ -11,15 +12,13 @@ class TaskListPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('My Tasks'),
       ),
-      body: SingleChildScrollView(
-          child: _buildBody(context)),
+      body: SingleChildScrollView(child: _buildBody(context)),
     );
   }
 
   BlocProvider<TaskListBloc> _buildBody(BuildContext context) {
     return BlocProvider<TaskListBloc>(
-      create: (_) =>
-      TaskListBloc(getTasks: GetTasksUseCase())
+      create: (_) => TaskListBloc(getTasks: GetTasksUseCase())
         ..add(RefreshTaskListEvent()),
       child: Column(
         children: <Widget>[
